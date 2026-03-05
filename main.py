@@ -54,7 +54,7 @@ mean_length = true_false['length'].mean()
 false_mean = true_false.get_group(False)['length'].mean() # -> 169.6
 true_mean = true_false.get_group(True)['length'].mean() # -> 243.6
 
-
+#smt
 palette = {False: 'red', True: 'green'}
 sns.kdeplot(data=df, x='length', hue='label_binary', palette=palette)
 
