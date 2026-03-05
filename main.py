@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('trainingsset-including-seed.csv')
 
 ########################################################################################
-#                          1. Wie groß ist der Datensatz
+#                          1. Wie groß ist der Datensatz                               #
 ########################################################################################
                     #  <class 'pandas.core.frame.DataFrame'>
                     # RangeIndex: 8270 entries, 0 to 8269
@@ -23,31 +23,32 @@ df = pd.read_csv('trainingsset-including-seed.csv')
                     # Info: None
 
 ########################################################################################
-#                   2. Wie lange sind die Anfragen im Durchschnitt
+#                   2. Wie lange sind die Anfragen im Durchschnitt                     #
 ########################################################################################
 df['clean_questions'] = df['question'].str.replace(r'#####\s*\r?\n', '', regex=True)
 df['length'] = df['clean_questions'].str.len() # --> 206.65392986698913
+bins = range(0, 850, 20)
 
-sns.kdeplot(df['length'])
+plt.hist(df['length'], bins=bins, edgecolor='black')
 
 plt.tight_layout(rect=[0, 0, 0.90, 0.95])
 plt.xlim(0, 800)
 plt.title('Wie lange sind die Anfragen im Durchschnitt')
 plt.xlabel('Lange')
 plt.ylabel('Dichte')
-plt.annotate(
-            'durchschnittliche Länge der Anfragen = 206.6',
-            xy=(210, 0.0023),
-            xytext=(320, 0.0015),
-            arrowprops=dict(arrowstyle='->', facecolor='black'),
-            fontsize=9,
-            color='blue'
-            )
-plt.scatter(210, 0.0023, color='black')
+#plt.annotate(
+#            'durchschnittliche Länge der Anfragen = 206.6',
+#            xy=(210, 0.0023),
+#            xytext=(320, 0.0015),
+#            arrowprops=dict(arrowstyle='->', facecolor='black'),
+#            fontsize=9,
+#            color='blue'
+#            )
+#plt.scatter(210, 0.0023, color='black')
 plt.show()
 
 ########################################################################################
-#           3. Unterscheiden sich die Anfragen in der Länge bezogen je nach Label?
+#           3. Unterscheiden sich die Anfragen in der Länge bezogen je nach Label?     #
 ########################################################################################
 true_false = df.groupby('label_binary')
 mean_length = true_false['length'].mean()
@@ -74,7 +75,7 @@ plt.annotate(
             )
 plt.scatter(243.6, 0.00088, color='black')
 plt.annotate(
-            text='Durchschnittliche Länge der Anfragen "True" = 169.6 ',
+            text='Durchschnittliche Länge der Anfragen "False" = 169.6 ',
             xy=(171, 0.00150),
             xytext=(280, 0.00200),
             arrowprops=dict(arrowstyle='->', facecolor='black'),
@@ -90,7 +91,7 @@ plt.show()
 #                   die unterschiedlich häufig sind je nach Label?
 ########################################################################################
 
-key_words = ['Bank', 'E-Mail', 'Kreditkarte', 'Überweisung']
+key_words = ['Bank', 'E-Mail', 'Kreditkarte', 'Überweisung', 'Juden', 'Jude', 'Sparkasse', 'klauen', 'schlampe', 'Schlampe']
 key_words_counts = {}
 
 for key_word in key_words:
